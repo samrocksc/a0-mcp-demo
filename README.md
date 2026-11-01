@@ -21,8 +21,8 @@ tools additionally demand the `people:read` permission minted into the
 
 ## Status
 
-Bootstrapped. The tree is a scaffold; first runnable code arrives with the
-MCP over SSE commit.
+MCP over SSE works. Four read-only tools answer through opencode and the
+smoke client. No auth yet: the next rung wires Auth0 gating.
 
 ## Secrets policy
 
