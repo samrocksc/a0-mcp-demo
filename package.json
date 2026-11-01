@@ -1,0 +1,14 @@
+{
+  "name": "a0-mcp-demo",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Read-only MCP server over SSE (SWAPI via swapi.info) gated by Auth0 with RBAC on urn:mcp. Built as a four-commit ladder for a blog series.",
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.0"
+  }
+}
