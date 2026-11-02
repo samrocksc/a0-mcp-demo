@@ -1,8 +1,8 @@
-// The data plane: four read-only reads against swapi.info.
+// The data plane: reads against swapi.info, now served from inside the Next app.
 // swapi.info is the maintained Star Wars API mirror. It has no native search,
 // so searchPeople fetches the full roster once and filters locally.
 
-const BASE = "https://swapi.info/api";
+const BASE = process.env.SWAPI_BASE ?? "https://swapi.info/api";
 
 export interface Person {
   name: string;

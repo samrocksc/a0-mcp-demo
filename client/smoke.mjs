@@ -4,12 +4,16 @@
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { SSEClientTransport } from "@modelcontextprotocol/sdk/client/sse.js";
 
-const transport = new SSEClientTransport(new URL("http://localhost:3001/sse"));
+const transport = new SSEClientTransport(new URL("http://localhost:3000/api/sse"));
 const mcp = new Client({ name: "a0-smoke", version: "0.1.0" });
 await mcp.connect(transport);
 
 const { tools } = await mcp.listTools();
 console.log("tools:", tools.map((t) => t.name).sort().join(", "));
+
+// The server polls up to MCP_WAIT_MS (default 90s) waiting for a login, so
+// the client's request timeout must be longer than the server's window.
+const CALL_TIMEOUT_MS = 120_000;
 
 for (const [name, args] of [
   ["getPerson", { id: 1 }],
@@ -17,7 +21,9 @@ for (const [name, args] of [
   ["getFilm", { id: 1 }],
   ["getPlanet", { id: 1 }],
 ]) {
-  const res = await mcp.callTool({ name, arguments: args });
+  const res = await mcp.callTool({ name, arguments: args }, undefined, {
+    timeout: CALL_TIMEOUT_MS,
+  });
   const text = res.content?.[0]?.text ?? "";
   console.log(`\n== ${name}(${JSON.stringify(args)}) ==`);
   console.log(res.isError ? `ERROR: ${text}` : text.slice(0, 220));

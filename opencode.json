@@ -3,7 +3,7 @@
   "mcp": {
     "a0-mcp-demo": {
       "type": "remote",
-      "url": "http://localhost:3001/sse",
+      "url": "http://localhost:3000/api/sse",
       "enabled": true
     }
   }
